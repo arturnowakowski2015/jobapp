@@ -1,50 +1,49 @@
-## Uruchomienie backendu
+## Starting backend
 
-Instalacja yarn'a:
+Yarn installation:
 `npm install --global yarn`
 
-[Inne opcje instalacji yarna.](https://classic.yarnpkg.com/lang/en/docs/install/)
+[Other options for installing yarn.](https://classic.yarnpkg.com/lang/en/docs/install/)
 
-Zainstaluj paczki za pomocą wybranego package managera (domyślnie yarn - patrz lockfile):
+Install packages using your chosen package manager (yarn by default - see lockfile):
 
 `yarn`
 
-Zainicjuj bazę danych uruchamiając komendę z folderu backendowego (więcej informacji w sekcji `Baza danych`):
+Initialize the database by running the command from the backend folder (see the `Database` section for more information):
 
 `yarn db:reset`
 
-Uruchom backend za pomocą komendy:
+Launch the backend with the command:
 
 `yarn start:dev`
+ 
 
-[VIDEO: Odpalanie API i praca ze swaggerem.](https://youtu.be/0CTSrqNyEd0)
+## Documentation API
 
-## Dokumentacja API
+API documentation is available after running the backend server at `http://localhost:9595/docs`.
 
-Dokumentacja API jest dostępna po uruchomieniu serwera backendowego pod adresem `http://localhost:9595/docs`.
+All requests have been described in detail, both what the endpoint expects and what it returns, including possible errors.
 
-Wszystkie requesty zostały dokładnie opisane, zarówno to czego endpoint oczekuję jak i to co zwraca z uwzględnieniem możliwych błędów.
+Schema descriptions for requests also take into account validation (minimum and maximum number of characters).
 
-Opisy schemy dla requestów również uwzględniają walidację (minimalna i maksymalna ilość znaków).
+## Database
 
-## Baza danych
-
-Repozytorium backendowe korzysta z bazy danych `sqlite`. W celu stworzenia bazy danych oraz wygenerowania początkowych danych wejdź do folderu z backendem, upewnij się, że serwer jest wyłączony i uruchom komendę:
+The backend repository uses a `sqlite` database. To create the database and generate initial data, go to the backend folder, make sure the server is turned off and run the command:
 
 ```
 yarn db:reset
 ```
 
-Ta komenda usunie bazę jeżeli takowa istnieje, stworzy nową i uruchomi migrację danych.
+This command will delete the database if it exists, create a new one and start data migration.
 
-Uwaga - ta komenda usunie dane zmodyfikowane przez Ciebie w bazie danych!
+Note - this command will delete the data you have modified in the database!
 
-## Komunikacja z API
+## Communication with API
 
-W celu autoryzacji po stronie Backend-u powinieneś do każdego zapytania dołączyć Bearer Token do nagłówka Authorization. Przykład:
+For authorization on the Backend side, you should attach a Bearer Token to the Authorization header of each query. Example:
 
 ```
 Authorization: Bearer eyJhbGc3OiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RAZXhhbXBsZS5jb20iLCJzd1IiOjE2NzQxMjcvMzcxMzEsImZpcnN0bmFtZSI6InRlc3QiLCJsYXN0bmFtZSI6InRlc3QiLCJpYXQiOjE2NzQxNDE4ODcsImV4cCI6MTY3NDE0aTQ4N30.SOU2GqpndnREZsrSiEbx7_cwcqXkA1jG5jkvDLX5emw
 ```
 
-Gdzie token występujący po słowie Bearer to token zwracany przez endpoint logowania.
+Where the token following the word Bearer is the token returned by the login endpoint.

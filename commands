@@ -1,0 +1,6 @@
+yarn create react-app hr-dashboard-frontend --template typescript
+
+
+yarn add -D @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-airbnb eslint-config-airbnb-typescript eslint-config-prettier eslint-plugin-import eslint-plugin-prettier eslint-plugin-react-hooks prettier
+
+yarn add @mui/material @emotion/react @emotion/styledui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto

@@ -20,3 +20,4 @@ export const useAxios = () => {
 };
 
 export const { isAxiosError } = axios;
+export { axios };

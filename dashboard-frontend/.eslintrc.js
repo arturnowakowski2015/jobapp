@@ -11,7 +11,7 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
     'plugin:react/jsx-runtime',
-    "plugin:react-hooks/recommended",
+    'plugin:react-hooks/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:prettier/recommended',
@@ -51,7 +51,8 @@ module.exports = {
     'import/order': [
       'error',
       {
-        'newlines-between': 'always',       groups: [          'builtin',
+        groups: [
+          'builtin',
           'external',
           'internal',
           'unknown',
@@ -63,7 +64,14 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/*.test.ts', '**/*.test.tsx', 'src/tests/**/*', 'src/setupTests.ts'] },
+      {
+        devDependencies: [
+          '**/*.test.ts',
+          '**/*.test.tsx',
+          'src/tests/**/*',
+          'src/setupTests.ts',
+        ],
+      },
     ],
   },
   overrides: [

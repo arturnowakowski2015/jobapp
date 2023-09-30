@@ -7,7 +7,7 @@ import { CenteredLayoutProps } from './CenteredLayout.types';
 export const CenteredLayout = ({ children }: CenteredLayoutProps) => {
   return (
     <Box sx={styles.container}>
-      { <Outlet />}
+      <Outlet />
       {children}
     </Box>
   );

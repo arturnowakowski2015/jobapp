@@ -24,7 +24,7 @@ export const useLogin = () => {
     dispatchLoginAction({ type: 'init' });
 
     try {
-      const { data } = await axios.post<LoginResponse>('/auth/login', body);
+      const { data } = await axios.post<LoginResponse>('/app/auth/login', body);
 
       onTokenSave({
         newToken: data.access_token,

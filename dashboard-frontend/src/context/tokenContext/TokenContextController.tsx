@@ -11,23 +11,23 @@ export const tokenStorageKey = 'access_token';
 export const TokenContextController = ({
   children,
 }: TokenContextControllerProps) => {
-  const [accessToken, setAccessToken] = useState<string | null>(
-    localStorage.getItem(tokenStorageKey),
-  );
+  const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
 
   const onTokenSave = useCallback(
-    ({ newToken, storeTokenInStorage }: OnTokenSaveProps) => {
+    ({
+      newToken, //  , storeTokenInStorage
+    }: OnTokenSaveProps) => {
       setAccessToken(newToken);
-
-      if (storeTokenInStorage) {
-        localStorage.setItem(tokenStorageKey, newToken);
-      }
+      //  alert(`bbbb${newToken}`);
+      // if (storeTokenInStorage) {
+      //   localStorage.setItem(tokenStorageKey, newToken);
+      // }
     },
     [],
   );
 
   const onTokenClear = useCallback(() => {
-    setAccessToken(null);
+    setAccessToken(undefined);
     localStorage.removeItem(tokenStorageKey);
   }, []);
 

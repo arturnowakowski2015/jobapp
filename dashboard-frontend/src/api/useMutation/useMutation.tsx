@@ -9,10 +9,11 @@
 
 import { useCallback, useReducer } from 'react';
 
+import { isAxiosError } from 'api/axios/useAxios';
+
 //  import axios from 'api/axios/axios';
 import { defaultState, mutationReducer } from './mutationReducer';
 import { UseMutationProps } from './useMutation.types';
-import { isAxiosError } from 'api/axios/useAxios';
 
 export const useMutation = <T extends unknown, R extends unknown>({
   mutateFn,
@@ -40,7 +41,7 @@ export const useMutation = <T extends unknown, R extends unknown>({
         dispatch({ type: 'finish' });
       }
     },
-    [mutateFn],
+    [mutateFn, onSuccess],
   );
 
   return { onMutate, state };

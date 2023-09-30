@@ -3,5 +3,5 @@ export type LoginPayload = {
   password: string;
 };
 export type LoginResponse = {
-  access_token: string;
+  accessToken: string;
 };

@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
 export type TokenContextValue = {
-  accessToken: string | undefined;
+  accessToken: string | null;
   onTokenSave: (props: OnTokenSaveProps) => void;
-  onTokenClear: () => void;
+  // onTokenClear: () => void;
 };
 
 export type TokenContextControllerProps = {

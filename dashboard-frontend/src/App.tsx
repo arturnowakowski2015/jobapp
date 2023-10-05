@@ -1,10 +1,12 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { AppRoute } from "AppRoute";
-import { CenteredLayout } from "components/centeredLayout/CenteredLayout";
-import { Home } from "views/home/Home";
-import { SignIn } from "views/signin/SignIn";
-import { Dashboard } from "views/dashboard/Dashboard";
+import { AppRoute } from 'AppRoute';
+import { CenteredLayout } from 'components/centeredLayout/CenteredLayout';
+
+import { Home } from 'views/home/Home';
+import { SignIn } from 'views/signin/SignIn';
+import { Dashboard } from 'views/dashboard/Dashboard';
+import { ProtectedRoute } from 'components/protectedRoute/ProtectedRoute';
 export const App = () => {
   return (
     <Router>
@@ -13,7 +15,14 @@ export const App = () => {
           <Route path={AppRoute.home} element={<Home />} />
           <Route path={AppRoute.signIn} element={<SignIn />} />
         </Route>
-        <Route path={AppRoute.dashboard} element={<Dashboard />} />
+        <Route
+          path={AppRoute.dashboard}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

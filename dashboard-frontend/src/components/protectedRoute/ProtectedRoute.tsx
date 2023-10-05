@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
@@ -12,31 +11,38 @@ import { CenteredLayout } from 'components/centeredLayout/CenteredLayout';
 import { ProtectedRouteProps } from './ProtectedRoute.types';
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { data, isLoading, errorMessage } = useProfile();
-  const { accessToken, onTokenClear } = useTokenContext();
+  // const { data, isLoading, errorMessage } = useProfile();
+  const {
+    accessToken, //   onTokenClear
+  } = useTokenContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!accessToken || errorMessage || (!isLoading && !data)) {
-      onTokenClear();
+    if (
+      !accessToken //   || errorMessage || (!isLoading && !data)
+    ) {
+      //  onTokenClear();
       navigate(AppRoute.signIn);
     }
-  }, [accessToken, data, errorMessage, isLoading, navigate, onTokenClear]);
+  }, [
+    accessToken,
+    navigate, // ,data, errorMessage, isLoading,  onTokenClear
+  ]);
 
-  if (isLoading) {
-    return (
-      <CenteredLayout>
-        <CircularProgress />
-      </CenteredLayout>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <CenteredLayout>
+  //       <CircularProgress />
+  //     </CenteredLayout>
+  //   );
+  // }
 
-  if (errorMessage || !data) return null;
+  // if (errorMessage || !data) return null;
 
   return (
-    <ProfileContextController profile={data}>
-      {children}
-    </ProfileContextController>
+    // <ProfileContextController profile={data}>
+    <div>{children}</div>
+    // </ProfileContextController>
   );
 };

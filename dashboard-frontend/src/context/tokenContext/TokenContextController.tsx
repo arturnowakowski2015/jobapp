@@ -14,14 +14,12 @@ export const TokenContextController = ({
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
 
   const onTokenSave = useCallback(
-    ({
-      newToken, //  , storeTokenInStorage
-    }: OnTokenSaveProps) => {
+    ({ newToken, storeTokenInStorage }: OnTokenSaveProps) => {
       setAccessToken(newToken);
-      //  alert(`bbbb${newToken}`);
-      // if (storeTokenInStorage) {
-      //   localStorage.setItem(tokenStorageKey, newToken);
-      // }
+
+      if (storeTokenInStorage) {
+        localStorage.setItem(tokenStorageKey, newToken);
+      }
     },
     [],
   );

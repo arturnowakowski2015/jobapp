@@ -12,5 +12,5 @@ export type TokenContextControllerProps = {
 
 export type OnTokenSaveProps = {
   newToken: string;
-  //storeTokenInStorage: boolean;
+  storeTokenInStorage: boolean;
 };

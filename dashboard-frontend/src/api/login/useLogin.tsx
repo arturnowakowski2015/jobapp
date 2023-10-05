@@ -28,7 +28,7 @@ export const useLogin = () => {
       alert(data.access_token);
       onTokenSave({
         newToken: data.access_token,
-        //storeTokenInStorage: isRememberMeChecked,
+        storeTokenInStorage: isRememberMeChecked,
       });
 
       navigate(AppRoute.dashboard);

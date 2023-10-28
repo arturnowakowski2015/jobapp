@@ -48,14 +48,8 @@ export const Home = () => {
               nodeId={`id_${node?.name}`}
               label={node?.name}
             >
-              {node?.frameworks ? (
-                <TreeView
-                  aria-label="rich object"
-                  defaultCollapseIcon={<ExpandMoreIcon />}
-                  defaultExpanded={['frameworks']}
-                  defaultExpandIcon={<ChevronRightIcon />}
-                >
-                  {node?.frameworks?.map((framework: any) => {
+              {node?.frameworks
+                ? node?.frameworks?.map((framework: any) => {
                     return (
                       <TreeItem
                         key={`id_${framework?.name}`}
@@ -63,45 +57,32 @@ export const Home = () => {
                         label={framework?.name}
                       >
                         {framework?.levels
-                          ? framework?.levels?.map((level: any, ii: number) => {
+                          ? framework?.levels?.map((level: any) => {
                               return (
-                                <TreeView
-                                  aria-label="rich object"
-                                  defaultCollapseIcon={<ExpandMoreIcon />}
-                                  defaultExpanded={[`levels${ii}`]}
-                                  defaultExpandIcon={<ChevronRightIcon />}
+                                <TreeItem
+                                  key={`id_${level?.name}`}
+                                  nodeId={`id_${level?.name}`}
+                                  label={level?.name}
                                 >
-                                  <TreeItem
-                                    key={`id_${level?.name}`}
-                                    nodeId={`id_${level?.name}`}
-                                    label={level?.name}
-                                  >
-                                    {level?.projects
-                                      ? level?.projects?.map((project: any) => {
-                                          return (
-                                            <TreeView
-                                              sx={{
-                                                paddingLeft: '30px',
-                                                cursor: 'pointer',
-                                              }}
-                                              key={`id_${project?.name}`}
-                                            >
-                                              {'  '}
-                                              {project?.name}
-                                            </TreeView>
-                                          );
-                                        })
-                                      : null}
-                                  </TreeItem>
-                                </TreeView>
+                                  {level?.projects
+                                    ? level?.projects?.map((project: any) => {
+                                        return (
+                                          <TreeItem
+                                            key={`id_${project?.name}`}
+                                            nodeId={`id_${project?.name}`}
+                                            label={project?.name}
+                                          />
+                                        );
+                                      })
+                                    : null}
+                                </TreeItem>
                               );
                             })
                           : null}
                       </TreeItem>
                     );
-                  })}
-                </TreeView>
-              ) : null}
+                  })
+                : null}
             </TreeItem>
           );
         })

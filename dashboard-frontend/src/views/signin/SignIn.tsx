@@ -8,21 +8,21 @@ import {
   Paper,
   TextField,
   Typography,
-} from "@mui/material";
-import { useState, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { AxiosResponse } from "axios";
+} from '@mui/material';
+import { useState, useCallback } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
 
-import { useAxios } from "api/axios/useAxios";
-import { emailRegex } from "common/emailRegex";
-import { useMutation } from "api/useMutation/useMutation";
-import { AppRoute } from "AppRoute";
-import { useTokenContext } from "context/tokenContext/useTokenContext";
+import { useAxios } from 'api/axios/useAxios';
+import { emailRegex } from 'common/emailRegex';
+import { useMutation } from 'api/useMutation/useMutation';
+import { AppRoute } from 'AppRoute';
+import { useTokenContext } from 'context/tokenContext/useTokenContext';
 
-import { LoginPayload, LoginResponse } from "./login.types";
+import { LoginPayload, LoginResponse } from './login.types';
 
-import * as styles from "./SignIn.styles";
+import * as styles from './SignIn.styles';
 
 export const SignIn = () => {
   const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
@@ -31,14 +31,13 @@ export const SignIn = () => {
   const axiosClient = useAxios();
   const onSuccess = useCallback(
     (res: AxiosResponse<LoginResponse>) => {
-      alert(res.data.accessToken);
       onTokenSave({
         newToken: res.data.accessToken,
         storeTokenInStorage: isRememberMeChecked,
       });
       navigate(AppRoute.dashboard);
     },
-    [navigate, onTokenSave, isRememberMeChecked]
+    [navigate, onTokenSave, isRememberMeChecked],
   );
   const {
     formState: { errors },
@@ -47,8 +46,10 @@ export const SignIn = () => {
   } = useForm<LoginPayload>();
 
   const { state, onMutate } = useMutation({
-    mutateFn: (payload: LoginPayload) =>
-      axiosClient.post<LoginResponse>("auth/login", payload),
+    mutateFn: (payload: LoginPayload) => {
+      alert(JSON.stringify(payload));
+      return axiosClient.post<LoginResponse>('auth/login', payload);
+    },
     onSuccess,
   });
 
@@ -103,11 +104,11 @@ export const SignIn = () => {
         <TextField
           variant="standard"
           label="E-mail *"
-          {...register("email", {
-            required: "This field cannot be empty",
+          {...register('email', {
+            required: 'This field cannot be empty',
             pattern: {
               value: emailRegex,
-              message: "Please use a valid e-mail address",
+              message: 'Please use a valid e-mail address',
             },
           })}
           error={Boolean(errors.email)}
@@ -119,11 +120,11 @@ export const SignIn = () => {
           variant="standard"
           label="Password *"
           type="password"
-          {...register("password", {
-            required: "This field cannot be empty",
+          {...register('password', {
+            required: 'This field cannot be empty',
             minLength: {
               value: 4,
-              message: "Please use at least 5 characters",
+              message: 'Please use at least 5 characters',
             },
           })}
           error={Boolean(errors.password)}
@@ -136,7 +137,7 @@ export const SignIn = () => {
             control={
               <Checkbox
                 checked={isRememberMeChecked}
-                onChange={(e) => setIsRememberMeChecked(e.target.checked)}
+                onChange={e => setIsRememberMeChecked(e.target.checked)}
               />
             }
             label="Remember me"
@@ -150,13 +151,13 @@ export const SignIn = () => {
         )}
 
         <Button type="submit" variant="contained" disabled={state.isLoading}>
-          {!state.isLoading && "SIGN IN"}
+          {!state.isLoading && 'SIGN IN'}
           {state.isLoading && <CircularProgress color="inherit" size={24} />}
           log in
         </Button>
 
         <Typography>
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link to={AppRoute.signUp}>Click here to create one</Link>
         </Typography>
       </Box>

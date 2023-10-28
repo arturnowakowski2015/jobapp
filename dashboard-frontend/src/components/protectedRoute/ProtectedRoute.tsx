@@ -39,9 +39,9 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       //  onTokenClear();
       navigate(AppRoute.signIn);
       setIsLoading(false);
-      return;
+      //  return;
     }
-    //checkProfile();
+    //  checkProfile();
   }, [
     accessToken,
     navigate,

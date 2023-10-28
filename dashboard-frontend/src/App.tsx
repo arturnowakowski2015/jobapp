@@ -7,6 +7,7 @@ import { Home } from 'views/home/Home';
 import { SignIn } from 'views/signin/SignIn';
 import { Dashboard } from 'views/dashboard/Dashboard';
 import { ProtectedRoute } from 'components/protectedRoute/ProtectedRoute';
+
 export const App = () => {
   return (
     <Router>

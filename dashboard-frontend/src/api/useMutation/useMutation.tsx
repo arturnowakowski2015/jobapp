@@ -1,7 +1,6 @@
 // import { useReducer, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
-// import { isAxiosError, useAxios } from 'api/axios/useAxios';
 // import { AppRoute } from 'AppRoute';
 // import { useTokenContext } from 'context/tokenContext/useTokenContext';
 
@@ -9,7 +8,7 @@
 
 import { useCallback, useReducer } from 'react';
 
-import { isAxiosError } from 'api/axios/useAxios';
+import { useAxios, isAxiosError } from 'api/axios/useAxios';
 
 //  import axios from 'api/axios/axios';
 import { defaultState, mutationReducer } from './mutationReducer';
@@ -20,13 +19,13 @@ export const useMutation = <T extends unknown, R extends unknown>({
   onSuccess,
 }: UseMutationProps<T, R>) => {
   const [state, dispatch] = useReducer(mutationReducer, defaultState);
-
+  const axiosClient = useAxios();
   const onMutate = useCallback(
     async (payload: T) => {
       try {
         // const { data } = await axios.post('/auth/login', payload);
         dispatch({ type: 'init' });
-        const res = await mutateFn(payload);
+        const res = await mutateFn(axiosClient)(payload);
         if (onSuccess) onSuccess(res);
         // console.log('ccccccccccc  ', JSON.stringify(data));
       } catch (error) {

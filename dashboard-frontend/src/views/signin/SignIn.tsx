@@ -12,9 +12,8 @@ import {
 import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { useAxios } from 'api/axios/useAxios';
 import { emailRegex } from 'common/emailRegex';
 import { useMutation } from 'api/useMutation/useMutation';
 import { AppRoute } from 'AppRoute';
@@ -28,7 +27,6 @@ export const SignIn = () => {
   const [isRememberMeChecked, setIsRememberMeChecked] = useState(false);
   const { onTokenSave } = useTokenContext();
   const navigate = useNavigate();
-  const axiosClient = useAxios();
   const onSuccess = useCallback(
     (res: AxiosResponse<LoginResponse>) => {
       onTokenSave({
@@ -46,10 +44,8 @@ export const SignIn = () => {
   } = useForm<LoginPayload>();
 
   const { state, onMutate } = useMutation({
-    mutateFn: (payload: LoginPayload) => {
-      //  alert(JSON.stringify(payload));
-      return axiosClient.post<LoginResponse>('auth/login', payload);
-    },
+    mutateFn: (axios: AxiosInstance) => (payload: LoginPayload) =>
+      axios.post<LoginResponse>('/auth/login', payload),
     onSuccess,
   });
 

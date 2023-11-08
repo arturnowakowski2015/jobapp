@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
-//  import { CircularProgress } from '@mui/material';
+import { useAxios, isAxiosError } from 'api/axios/useAxios';
 
+//  import { CircularProgress } from '@mui/material';
 import { AppRoute } from 'AppRoute';
 //  import { useProfile } from 'api/profile/useProfile';
 //  import { ProfileContextController } from 'context/profileContext/ProfileContextController';
@@ -12,6 +12,7 @@ import { useTokenContext } from 'context/tokenContext/useTokenContext';
 import { ProtectedRouteProps } from './ProtectedRoute.types';
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const axiosClient = useAxios();
   // const { data, isLoading, errorMessage } = useProfile();
   const {
     accessToken, //   onTokenClear
@@ -23,9 +24,7 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   const checkProfile = useCallback(async () => {
     try {
-      await axios.get('http://localhost:9595/users/me', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      await axiosClient.get('/users/me');
     } catch (_error) {
       navigate(AppRoute.signIn);
     }

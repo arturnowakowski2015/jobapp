@@ -47,7 +47,7 @@ export const SignIn = () => {
 
   const { state, onMutate } = useMutation({
     mutateFn: (payload: LoginPayload) => {
-      alert(JSON.stringify(payload));
+      //  alert(JSON.stringify(payload));
       return axiosClient.post<LoginResponse>('auth/login', payload);
     },
     onSuccess,

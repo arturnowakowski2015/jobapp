@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useCallback, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 //  import { CircularProgress } from '@mui/material';
 
@@ -39,16 +39,16 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
       //  onTokenClear();
       navigate(AppRoute.signIn);
       setIsLoading(false);
-      //  return;
+      return;
     }
-    //  checkProfile();
+    checkProfile();
   }, [
     accessToken,
     navigate,
     checkProfile, // ,data, errorMessage, isLoading,  onTokenClear
   ]);
 
-  // if (isLoading) {
+  //   if (isLoading) {
   //   return (
   //     <CenteredLayout>
   //       <CircularProgress />

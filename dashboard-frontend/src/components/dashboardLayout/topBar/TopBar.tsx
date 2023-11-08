@@ -16,16 +16,20 @@ import { PersonOutline, Logout } from '@mui/icons-material';
 import { AppRoute } from 'AppRoute';
 //  import { useProfileContext } from 'context/profileContext/useProfileContext';
 import { getInitials } from 'utils/getInitials/getInitials';
-
+import { useQuery } from 'api/useQuery/useQuery';
 import * as styles from './TopBar.styles';
 
 export const TopBar = () => {
   //  const { profile } = useProfileContext();
 
   //  const profileFullName = `${profile.firstname} ${profile.lastname}`;
-  const profileFullName = 'KW';
+  //  const profileFullName = 'KW';
   const avatarRef = useRef<HTMLDivElement | null>(null);
 
+  const { state } = useQuery({
+    url: '/users/me',
+    initFetch: true,
+  });
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
@@ -59,7 +63,10 @@ export const TopBar = () => {
         </Typography>
 
         <Box onMouseEnter={onMouseEnter} ref={avatarRef}>
-          <Avatar>{getInitials(profileFullName)}</Avatar>
+          <Avatar>
+            {' '}
+            {getInitials(`${state.data?.firstName} ${state.data?.lastName}`)}
+          </Avatar>
           <Menu
             onClose={handleClose}
             anchorEl={anchorEl}
@@ -76,10 +83,12 @@ export const TopBar = () => {
             <MenuItem sx={styles.usernameMenuItem} disabled>
               <ListItemIcon>
                 <Avatar sx={styles.smallAvatar}>
-                  {getInitials(profileFullName)}
+                  {getInitials(
+                    `${state.data?.firstName} ${state.data?.lastName}`,
+                  )}
                 </Avatar>
               </ListItemIcon>
-              <ListItemText>{profileFullName}</ListItemText>
+              <ListItemText>{state.data?.firstName}</ListItemText>
             </MenuItem>
 
             <MenuItem

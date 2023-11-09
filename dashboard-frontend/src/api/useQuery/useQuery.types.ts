@@ -22,6 +22,7 @@ export type QueryState<T> =
   | {
       isLoading: false;
       errorMessage: string;
+
       data: T;
     }
   | { isLoading: false; errorMessage: undefined; data: any };

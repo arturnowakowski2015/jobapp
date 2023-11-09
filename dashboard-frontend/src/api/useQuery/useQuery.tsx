@@ -14,7 +14,7 @@ import { defaultState, queryReducer } from './queryReducer';
 
 export const useQuery = <T extends unknown>({
   url,
-  initFetch,
+  initFetch = true,
 }: UseQueryProps) => {
   const axiosClient = useAxios();
   const [state, dispatch] = useReducer<
@@ -37,7 +37,7 @@ export const useQuery = <T extends unknown>({
       }
       dispatch({
         type: 'error',
-        payload: 'Something went wrong. Try again.',
+        payload: 'Something went wrong. Try again .',
       });
     }
   }, [axiosClient, url]);

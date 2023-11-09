@@ -1,6 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
-import { useAxios, isAxiosError } from 'api/axios/useAxios';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useEffect, useCallback } from 'react';
 
 //  import { CircularProgress } from '@mui/material';
 import { AppRoute } from 'AppRoute';
@@ -9,10 +8,11 @@ import { AppRoute } from 'AppRoute';
 import { useTokenContext } from 'context/tokenContext/useTokenContext';
 //  import { CenteredLayout } from 'components/centeredLayout/CenteredLayout';
 
+import { useQuery } from 'api/useQuery/useQuery';
+import { Profile } from 'types/profile.types';
 import { ProtectedRouteProps } from './ProtectedRoute.types';
 
 export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const axiosClient = useAxios();
   // const { data, isLoading, errorMessage } = useProfile();
   const {
     accessToken, //   onTokenClear
@@ -20,16 +20,13 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(true);
-
+  const { state, onQuery } = useQuery<Profile>({
+    url: '/users/me',
+    initFetch: false,
+  });
   const checkProfile = useCallback(async () => {
-    try {
-      await axiosClient.get('/users/me');
-    } catch (_error) {
-      navigate(AppRoute.signIn);
-    }
-    setIsLoading(false);
-  }, [accessToken, navigate]);
+    onQuery();
+  }, [onQuery]);
 
   useEffect(() => {
     if (
@@ -37,7 +34,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     ) {
       //  onTokenClear();
       navigate(AppRoute.signIn);
-      setIsLoading(false);
       return;
     }
     checkProfile();
@@ -46,7 +42,11 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     navigate,
     checkProfile, // ,data, errorMessage, isLoading,  onTokenClear
   ]);
-
+  useEffect(() => {
+    if (state.errorMessage) {
+      navigate(AppRoute.signIn);
+    }
+  }, [navigate, state.errorMessage]);
   //   if (isLoading) {
   //   return (
   //     <CenteredLayout>
@@ -55,11 +55,13 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   //   );
   // }
 
-  // if (errorMessage || !data) return null;
-  if (isLoading) return null;
+  if (state.isLoading || state.errorMessage || !accessToken) return null;
   return (
     // <ProfileContextController profile={data}>
-    <div>{children}</div>
+    <div>
+      {children && children}
+      {!children && <Outlet />}
+    </div>
     // </ProfileContextController>
   );
 };

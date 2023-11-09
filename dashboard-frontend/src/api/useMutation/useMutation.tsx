@@ -32,7 +32,7 @@ export const useMutation = <T extends unknown, R extends unknown>({
         if (isAxiosError(error) && error.response?.status === 401) {
           dispatch({
             type: 'error',
-            payload: 'Something went wrong. Try again.',
+            payload: 'You are not authorized. Try again.',
           });
           return;
         }

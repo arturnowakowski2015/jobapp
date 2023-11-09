@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { useAxios } from 'api/axios/useAxios';
 
-import { Profile } from './profile.types';
+import { Profile } from '../../types/profile.types';
 
 export const useProfile = () => {
   const [isLoading, setIsLoading] = useState(true);

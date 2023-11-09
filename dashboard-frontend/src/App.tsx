@@ -18,15 +18,10 @@ export const App = () => {
           <Route path={AppRoute.signIn} element={<SignIn />} />
         </Route>
 
-        <Route element={<DashboardLayout />}>
-          <Route
-            path={AppRoute.dashboard}
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route path={AppRoute.dashboard} element={<Dashboard />} />
+          </Route>
         </Route>
       </Routes>
     </Router>

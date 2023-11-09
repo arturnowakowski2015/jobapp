@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { Profile } from 'api/profile/profile.types';
+import { Profile } from 'types/profile.types';
 
 export type ProfileContextValue = {
   profile: Profile;

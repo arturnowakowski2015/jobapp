@@ -8,6 +8,7 @@ import { SignIn } from 'views/signin/SignIn';
 import { Dashboard } from 'views/dashboard/Dashboard';
 import { ProtectedRoute } from 'components/protectedRoute/ProtectedRoute';
 import { DashboardLayout } from 'components/dashboardLayout/DashboardLayout';
+import { Profile } from 'views/profile/Profile';
 
 export const App = () => {
   return (
@@ -21,6 +22,7 @@ export const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardLayout />}>
             <Route path={AppRoute.dashboard} element={<Dashboard />} />
+            <Route path={AppRoute.profile} element={<Profile />} />
           </Route>
         </Route>
       </Routes>

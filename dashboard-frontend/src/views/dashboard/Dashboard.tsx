@@ -32,8 +32,6 @@ export const Dashboard = () => {
     initFetch: true,
   });
 
-  console.log(jobState);
-  console.log(candidatesState);
   return (
     <Box sx={styles.container}>
       <DashboardItem>
